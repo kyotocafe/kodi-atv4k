@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Titan-->
+<includes>
+	<include name="SlimListLayout">
+
+		<!--Title-->
+		<control type="label">
+			<posx>16</posx>
+			<align>left</align>
+			<width>54%</width>
+			<label>[B]$INFO[ListItem.Label][/B]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<font>font12_title</font>
+		</control>
+         <!--Details PVR or addons-->
+		<control type="label">
+			<posx>16</posx>
+			<align>left</align>
+			<width>90%</width>
+			<label>[B]$INFO[ListItem.Label][/B]$VAR[ListDetails, • ]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+			<font>font12_title</font>
+            <visible>[Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+		</control>
+		
+		<!--quality-->
+		<control type="label">
+			<right>12</right>
+			<width>80</width>
+			<align>right</align>
+			<label>[B]$VAR[HDIndicator][/B]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+			<font>font12_title</font>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<visible>![[Skin.HasSetting(WatchedIndicator.Watched) + String.IsEqual(ListItem.Overlay,OverlayWatched.png)] | [Skin.HasSetting(WatchedIndicator.Sets) + String.Contains(ListItem.Path,videodb://movies/sets/)] | [Skin.HasSetting(WatchedIndicator.Progress) + ListItem.IsResumable] | [Skin.HasSetting(WatchedIndicator.Episodes) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)] | ListItem.IsPlaying | ListItem.IsRecording | Skin.HasSetting(WatchedIndicator.UnWatched)]</visible>
+		</control>
+		
+		<!--Rating-->
+		<control type="label">
+			<right>87</right>
+			<width>80</width>
+			<align>center</align>
+			<label>$INFO[ListItem.Rating]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+			<font>font12_title</font>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<visible>!Control.IsVisible(51) + !Control.IsVisible(515)</visible>
+			<visible>Container.Content(movies)</visible>
+		</control>
+
+		<!--Rating TV-->
+		<control type="label">
+			<right>230</right>
+			<width>80</width>
+			<align>center</align>
+			<label>$INFO[ListItem.Rating]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+			<font>font12_title</font>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<visible>!Control.IsVisible(51) + !Control.IsVisible(515)</visible>
+			<visible>Container.Content(tvshows)</visible>
+		</control>
+		
+		
+		<!--runtime-->
+		<control type="label">
+			<right>180</right>
+			<width>140</width>
+			<align>center</align>
+			<label>$INFO[ListItem.Duration,, min.]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+			<visible>![Skin.HasSetting(BigListViewShowInfo) + Control.IsVisible(51)] + !Control.IsVisible(515)</visible>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<font>font12_title</font>
+		</control>
+		
+		<!--Year-->
+		<control type="label">
+			<right>327</right>
+			<width>110</width>
+			<align>center</align>
+			<label>$INFO[ListItem.Year]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+			<visible>![Skin.HasSetting(BigListViewShowInfo) + Control.IsVisible(51)] + !Control.IsVisible(515)</visible>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<font>font12_title</font>
+		</control>
+		
+		<control type="group">
+			<right>12</right>
+			<include>WatchedIndicatorSmallList</include>
+		</control>
+		
+                <control type="label">
+                    <right>16</right>
+                    <align>right</align>
+                    <font>font12_title</font>
+                    <width>100</width>
+                    <label>$INFO[ListItem$PARAM[listitem].PercentPlayed]%</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+					<visible>ListItem$PARAM[listitem].IsResumable + Skin.HasSetting(WatchedIndicator.Progress)</visible>
+                </control>
+
+			<control type="group">
+				<right>16</right>
+				<control type="label">
+					<top>1</top>
+                    <right>131</right>
+                    <align>right</align>
+                    <font>Light18</font>
+                    <width>100</width>
+                    <label>S</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+					<visible>Container.Content(tvshows)</visible>
+                </control>				
+				<control type="image">
+					<top>20</top>
+					<right>125</right>
+					<height>22</height>
+					<width>22</width>
+					<texture border="2">border.png</texture>
+					<colordiffuse>33ffffff</colordiffuse>
+					<visible>Container.Content(tvshows)</visible>
+				</control>
+				<control type="label">
+                    <right>154</right>
+                    <align>right</align>
+                    <font>font12_title</font>
+                    <width>100</width>
+                    <label>$INFO[ListItem.Property(TotalSeasons)]</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+                </control>
+			</control>
+
+			<!--Number of Media Versions-->
+				<control type="image">
+					<top>16</top>
+					<right>490</right>
+					<height>26</height>
+					<width>26</width>
+					<texture border="2">versions.png</texture>
+					<colordiffuse>63ffffff</colordiffuse>
+					<visible>!String.IsEmpty(ListItem.UserRating)</visible>	
+				</control>			
+
+				<control type="label">
+					<top>-1</top>
+                    <right>380</right>
+                    <align>left</align>
+                    <font>font12_title</font>
+                    <width>100</width>
+                    <label>$INFO[ListItem.UserRating]</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+                </control>
+
+			<!--Number of Seasons and Episodes-->				
+			<control type="group">
+				<right>10</right>			
+				<control type="label">
+					<top>0</top>
+                    <right>14</right>
+                    <align>right</align>
+                    <font>Light18</font>
+                    <width>100</width>
+                    <label>E</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+					<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+					<visible>Integer.IsGreater(ListItem$PARAM[listitem].Property(UnWatchedEpisodes),0) + Skin.HasSetting(WatchedIndicator.Episodes)</visible>
+                </control>				
+				<control type="image">
+					<top>20</top>
+					<right>8</right>
+					<height>22</height>
+					<width>22</width>
+					<texture border="2">border.png</texture>
+					<colordiffuse>33ffffff</colordiffuse>
+					<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+					<visible>Integer.IsGreater(ListItem$PARAM[listitem].Property(UnWatchedEpisodes),0) + Skin.HasSetting(WatchedIndicator.Episodes)</visible>
+				</control>			
+				<control type="label">
+                    <right>38</right>
+                    <align>right</align>
+                    <font>font12_title</font>
+                    <width>100</width>
+                    <label>$INFO[ListItem$PARAM[listitem].Property(UnWatchedEpisodes)]</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextColor)]</textcolor>
+					<visible>Integer.IsGreater(ListItem$PARAM[listitem].Property(UnWatchedEpisodes),0) + Skin.HasSetting(WatchedIndicator.Episodes)</visible>
+                </control>
+			</control>
+			
+		<control type="image">
+			<bottom>-1</bottom>
+			<posy>0</posy>
+			<posx>12</posx>
+			<height>1</height>
+			<width>1258</width>
+			<texture>diffuse/panel.png</texture>
+			<colordiffuse>21c0c0c0</colordiffuse>
+		</control>
+	</include>
+
+    <include name="SlimListLayoutFocus">
+		<control type="image">
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>100%</width>
+			<height>100%</height>
+			<texture>listfocus.png</texture>
+			<colordiffuse>4affffff</colordiffuse>	
+		</control>
+		<!--Title-->
+		<control type="label">
+			<posx>16</posx>
+			<align>left</align>
+			<width>54%</width>
+			<label>[B]$INFO[ListItem.Label][/B]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+			<font>font12_title</font>
+			<scroll>true</scroll>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+		</control>
+         <!--Details PVR or addons-->
+		<control type="label">
+			<posx>16</posx>
+			<align>left</align>
+			<width>90%</width>
+			<label>[B]$INFO[ListItem.Label][/B]$VAR[ListDetails, • ]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+			<font>font12_title</font>
+            <visible>[Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+		</control>
+		
+		<!--quality-->
+		<control type="label">
+			<right>12</right>
+			<width>80</width>
+			<align>right</align>
+			<label>[B]$VAR[HDIndicator][/B]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+			<font>font12_title</font>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<visible>![[Skin.HasSetting(WatchedIndicator.Watched) + String.IsEqual(ListItem.Overlay,OverlayWatched.png)] | [Skin.HasSetting(WatchedIndicator.Sets) + String.Contains(ListItem.Path,videodb://movies/sets/)] | [Skin.HasSetting(WatchedIndicator.Progress) + ListItem.IsResumable] | [Skin.HasSetting(WatchedIndicator.Episodes) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)] | ListItem.IsPlaying | ListItem.IsRecording | Skin.HasSetting(WatchedIndicator.UnWatched)]</visible>
+		</control>
+		
+		<!--Rating-->
+		<control type="label">
+			<right>87</right>
+			<width>80</width>
+			<align>center</align>
+			<label>$INFO[ListItem.Rating]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+			<font>font12_title</font>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<visible>!Control.IsVisible(51) + !Control.IsVisible(515)</visible>
+			<visible>Container.Content(movies)</visible>
+		</control>
+
+		<!--RatingTV-->
+		<control type="label">
+			<right>230</right>
+			<width>80</width>
+			<align>center</align>
+			<label>$INFO[ListItem.Rating]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+			<font>font12_title</font>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<visible>!Control.IsVisible(51) + !Control.IsVisible(515)</visible>
+			<visible>Container.Content(tvshows)</visible>
+		</control>		
+		
+		<!--runtime-->
+		<control type="label">
+			<right>180</right>
+			<width>140</width>
+			<align>center</align>
+			<label>$INFO[ListItem.Duration,, min.]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+			<visible>![Skin.HasSetting(BigListViewShowInfo) + Control.IsVisible(51)] + !Control.IsVisible(515)</visible>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<font>font12_title</font>
+		</control>
+		
+		<!--Year-->
+		<control type="label">
+			<right>327</right>
+			<width>110</width>
+			<align>center</align>
+			<label>$INFO[ListItem.Year]</label>
+			<textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+			<visible>![Skin.HasSetting(BigListViewShowInfo) + Control.IsVisible(51)] + !Control.IsVisible(515)</visible>
+            <visible>![Window.IsActive(tvchannels) | Window.IsActive(tvguide) | Window.IsActive(tvtimers) | Window.IsActive(tvsearch) | Window.IsActive(tvrecordings) | Window.IsActive(addonbrowser)]</visible>
+			<font>font12_title</font>
+		</control>
+		
+		<control type="group">
+			<right>12</right>
+			<include>WatchedIndicatorSmallList</include>
+		</control>
+
+                <control type="label">
+                    <right>16</right>
+                    <align>right</align>
+                    <font>font12_title</font>
+                    <width>100</width>
+                    <label>$INFO[ListItem$PARAM[listitem].PercentPlayed]%</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+					<visible>ListItem$PARAM[listitem].IsResumable + Skin.HasSetting(WatchedIndicator.Progress)</visible>
+                </control>
+
+			<!--Number of Media Versions-->
+				<control type="image">
+					<top>16</top>
+					<right>490</right>
+					<height>26</height>
+					<width>26</width>
+					<texture border="2">versions.png</texture>
+					<colordiffuse>efffffff</colordiffuse>
+					<visible>!String.IsEmpty(ListItem.UserRating)</visible>	
+				</control>			
+
+				<control type="label">
+					<top>-1</top>
+                    <right>380</right>
+                    <align>left</align>
+                    <font>font12_title</font>
+                    <width>100</width>
+                    <label>$INFO[ListItem.UserRating]</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+                </control>				
+				
+			<control type="group">
+				<right>16</right>
+				<control type="label">
+					<top>1</top>
+                    <right>131</right>
+                    <align>right</align>
+                    <font>Light18</font>
+                    <width>100</width>
+                    <label>S</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+					<visible>Container.Content(tvshows)</visible>
+                </control>				
+				<control type="image">
+					<top>20</top>
+					<right>125</right>
+					<height>22</height>
+					<width>22</width>
+					<texture border="2">border.png</texture>
+					<colordiffuse>73ffffff</colordiffuse>
+					<visible>Container.Content(tvshows)</visible>
+				</control>
+				<control type="label">
+                    <right>154</right>
+                    <align>right</align>
+                    <font>font12_title</font>
+                    <width>100</width>
+                    <label>$INFO[ListItem.Property(TotalSeasons)]</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+                </control>
+			</control>
+
+			<control type="group">
+				<right>10</right>			
+				<control type="label">
+					<top>0</top>
+                    <right>14</right>
+                    <align>right</align>
+                    <font>Light18</font>
+                    <width>100</width>
+                    <label>E</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+					<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+					<visible>Integer.IsGreater(ListItem$PARAM[listitem].Property(UnWatchedEpisodes),0) + Skin.HasSetting(WatchedIndicator.Episodes)</visible>
+                </control>				
+				<control type="image">
+					<top>20</top>
+					<right>8</right>
+					<height>22</height>
+					<width>22</width>
+					<texture border="2">border.png</texture>
+					<colordiffuse>73ffffff</colordiffuse>
+					<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+					<visible>Integer.IsGreater(ListItem$PARAM[listitem].Property(UnWatchedEpisodes),0) + Skin.HasSetting(WatchedIndicator.Episodes)</visible>
+				</control>
+						
+				<control type="label">
+                    <right>38</right>
+                    <align>right</align>
+                    <font>font12_title</font>
+                    <width>100</width>
+                    <label>$INFO[ListItem$PARAM[listitem].Property(UnWatchedEpisodes)]</label>
+                    <textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+					<visible>Integer.IsGreater(ListItem$PARAM[listitem].Property(UnWatchedEpisodes),0) + Skin.HasSetting(WatchedIndicator.Episodes)</visible>
+                </control>
+			</control>
+				
+		<control type="image">
+			<bottom>0</bottom>
+			<posy>0</posy>
+			<height>1</height>
+			<texture>diffuse/panel.png</texture>
+			<colordiffuse>00c0c0c0</colordiffuse>
+			
+		</control>
+	</include>
+	
+    <include name="View_516_SlimList">
+	
+		<control type="group">
+			<include>animation_view_change</include>
+			<defaultcontrol always="true">516</defaultcontrol>
+			<visible>Control.IsVisible(516)</visible>
+            <visible>!Window.IsActive(DialogVideoInfo.xml)</visible>
+			<!-- Background Panel-->
+			<control type="image">
+				<right>52</right>
+                <bottom>17%</bottom>
+				<width>1180</width>
+                <height>736</height>
+				<texture border="15">diffuse/bgpanel.png</texture>
+				<colordiffuse>$VAR[ViewDetailsPanelColor]</colordiffuse>
+				<visible>!Skin.HasSetting(View516_HidePanel) + Skin.HasSetting(SlimListViewShowInfo)</visible>
+                <visible>Integer.IsGreater(Container.NumItems,0)</visible>
+                <animation effect="slide" end="-637" time="0" condition="Skin.HasSetting(View516_ShowInfoRight) + Skin.HasSetting(SlimListViewShowInfo)">Conditional</animation>
+			</control>
+            <control type="image">
+				<left>560</left>
+                <bottom>17%</bottom>
+				<width>1302</width>
+                <height>736</height>
+				<texture border="15">diffuse/bgpanel.png</texture>
+				<colordiffuse>$VAR[ViewDetailsPanelColor]</colordiffuse>
+				<visible>!Skin.HasSetting(View516_HidePanel) + !Skin.HasSetting(SlimListViewShowInfo)</visible>
+                <visible>Integer.IsGreater(Container.NumItems,0)</visible>
+                <animation effect="slide" end="-627" time="0" condition="Skin.HasSetting(View516_ShowInfoRight) + Skin.HasSetting(SlimListViewShowInfo)">Conditional</animation>
+			</control>
+		
+			<control type="panel" id="516">
+                <animation effect="slide" end="-627" time="0" condition="Skin.HasSetting(View516_ShowInfoRight) + Skin.HasSetting(SlimListViewShowInfo)">Conditional</animation>
+				<bottom>17%</bottom>
+                <height>726</height>	
+				<left>570</left>
+				<width>1290</width>
+				<onup>516</onup>
+				<ondown>516</ondown>
+				<onleft>9000</onleft>
+				<onright condition="Skin.HasSetting(EnableQuickJump)">6000</onright>
+                <onright condition="!Skin.HasSetting(EnableQuickJump)">60</onright>
+				<viewtype label="31450">list</viewtype>
+				<orientation>vertical</orientation>
+				<pagecontrol>60</pagecontrol>
+				<scrolltime tween="cubic" easing="out">600</scrolltime>
+				<preloaditems>2</preloaditems>
+				<visible>String.IsEqual(Window(Home).Property(SkinHelper.ForcedView),516) | String.IsEmpty(Window(Home).Property(SkinHelper.ForcedView))</visible>
+				<itemlayout width="1280" height="60" condition="Skin.HasSetting(SlimListViewShowInfo)">
+                    <control type="group">
+                        <right>0</right>
+                        <width>1160</width>
+                        <include>SlimListLayout</include>
+                    </control>
+				</itemlayout>
+				<focusedlayout width="1280" height="60" condition="Skin.HasSetting(SlimListViewShowInfo)">
+					<control type="group">
+                        <right>0</right>
+                        <width>1160</width>
+                        <include>SlimListLayoutFocus</include>
+                        <include>AutoTrailerButton</include>
+                    </control>
+				</focusedlayout>
+                         <itemlayout width="1280" height="60" condition="!Skin.HasSetting(SlimListViewShowInfo)">		
+					<include>SlimListLayout</include>
+				</itemlayout>
+				<focusedlayout width="1280" height="60" condition="!Skin.HasSetting(SlimListViewShowInfo)">
+					<include>SlimListLayoutFocus</include>
+				</focusedlayout>
+
+			</control>
+			
+		
+			<!--large poster-->
+			<control type="group">
+				<visible>!Skin.HasSetting(SlimListViewShowInfo)</visible>
+                <visible>Integer.IsGreater(Container.NumItems,0)</visible>
+                <left>50</left>
+                <bottom>17%</bottom>
+                <height>736</height>
+                <width>500</width>
+				<control type="image">
+					<top>-30</top>
+					<left>-90</left>
+					<width>720</width>
+					<height>900</height>
+					<texture>PosterViewGlow.png</texture>
+					<colordiffuse>7affffff</colordiffuse>
+					<visible>!Container.Content(Songs)</visible>
+					<animation effect="fade" start="0" end="30" time="2010" pulse="true" condition="true">Conditional</animation>
+				</control>
+                <control type="image">
+                    <include>PosterThumbBG</include>
+                    <visible>!Skin.HasSetting(View_HidePosterPanel)</visible>
+                </control>
+                <control type="image">
+					<!--cdart image music-->
+                    <width>500</width>
+                    <height>500</height>
+                    <bottom>0</bottom>
+                    <bordersize>8</bordersize>
+					<texture background="true" diffuse="diffuse/cdmask_new.png">$VAR[DiscArtImage]</texture>
+					<aspectratio scalediffuse="false" align="center" aligny="center">scale</aspectratio>
+					<animation effect="slide" start="0,0" end="0,-230" tween="cubic" easing="inout" time="1200" delay="600" condition="Skin.HasSetting(View51_ShowCDart)">Conditional</animation>
+					<animation effect="fade" start="0" end="100" delay="600" time="800" pulse="false" condition="Skin.HasSetting(View51_ShowCDart)">Conditional</animation>
+					<animation effect="rotate" end="-360" center="auto" time="20000" loop="true" reversible="false" condition="Skin.HasSetting(AnimateDiscArt)">Conditional</animation>
+                    <visible>Skin.HasSetting(View516_ShowCDart) + [Container.Content(albums) | Container.Content(songs)] + !String.IsEmpty(ListItem.Album) + !String.IsEmpty(ListItem.Thumb)</visible>
+				</control>
+                <control type="image">
+					<aspectratio align="center" aligny="center" scalediffuse="false">stretch</aspectratio>
+					<texture background="true" diffuse="diffuse/poster.png" fallback="DefaultVideo.png">$VAR[PosterThumb]</texture>
+					<bordertexture>postershadow.png</bordertexture>
+					<bordersize>12</bordersize>
+					<fadetime>200</fadetime>
+                    <visible>!Container.Content(songs)</visible>
+					<visible>!Container.Content(albums)</visible>
+					<visible>!Container.Content(artists)</visible>
+				</control>
+                <control type="image">
+                    <width>500</width>
+                    <height>500</height>
+					<aspectratio align="center" aligny="center" scalediffuse="false">scale</aspectratio>
+					<texture background="true" diffuse="diffuse/poster.png" fallback="DefaultVideo.png">$INFO[ListItem.Thumb]</texture>
+					<bordertexture>postershadow.png</bordertexture>
+					<bordersize>12</bordersize>
+                    <visible>Container.Content(albums) | Container.Content(songs) | Container.Content(artists)</visible>
+				</control>
+                <control type="image">
+                    <width>500</width>
+                    <height>500</height>
+					<aspectratio align="center" aligny="center" scalediffuse="false">scale</aspectratio>
+					<texture background="true" diffuse="diffuse/poster.png">$INFO[ListItem.Thumb]</texture>
+					<bordertexture>postershadow.png</bordertexture>
+					<bordersize>12</bordersize>
+                    <visible>Container.Content(songs)</visible>
+				</control>
+                <control type="image">
+					<aspectratio align="center" aligny="bottom" scalediffuse="true">keep</aspectratio>
+					<texture background="true" diffuse="diffuse/poster.png" fallback="DefaultAddonMusic.png">$VAR[PosterThumb]</texture>
+					<bordersize>8</bordersize>
+                    <visible>Skin.HasSetting(View516_ShowCDart) + [Container.Content(albums) | Container.Content(songs)] + !String.IsEmpty(ListItem.Album) + !String.IsEmpty(ListItem.Thumb)</visible>
+				</control>
+			</control>
+
+			
+			<!--vertical Scollbar-->
+			<control type="scrollbar" id="60">
+				<visible>Control.IsVisible(516) + Integer.IsGreater(Container.Numitems,0)</visible>
+				<right>15</right>
+				<bottom>17%</bottom>
+				<height>736</height>
+				<onup>60</onup>
+				<ondown>6000</ondown>
+				<onleft>516</onleft>
+				<animation effect="fade" start="0" end="100" time="400" condition="[Control.HasFocus(60) | Skin.HasSetting(EnableTouchSupport) | Container.Scrolling | Skin.HasSetting(alwaysShowScrollbars)] + !Control.IsVisible(6002)">Conditional</animation>
+				<animation effect="fade" start="100" end="0" time="400" condition="![Control.HasFocus(60) | Skin.HasSetting(EnableTouchSupport) | Container.Scrolling | Skin.HasSetting(alwaysShowScrollbars)] | Control.IsVisible(6002)">Conditional</animation>
+			</control>
+                 <include>MovieDetailsLeft</include>
+
+		</control>
+		
+ 	</include>
+
+</includes>

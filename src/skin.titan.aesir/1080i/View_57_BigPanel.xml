@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+  
+  
+  <include name="View_57_BigPanel">
+    <control type="group">
+      <visible>Control.IsVisible(57)</visible>
+      <include>animation_view_change</include>
+      
+	  <control type="panel" id="57">
+        <viewtype label="31426">icons</viewtype>
+        <posx>98</posx>
+        <bottom>110</bottom>
+        <height>800</height>
+        <width>1834</width>
+        <orientation>vertical</orientation>
+        <onleft>9000</onleft>
+        <onright condition="Skin.HasSetting(EnableQuickJump)">6000</onright>
+        <onright condition="!Skin.HasSetting(EnableQuickJump)">60</onright>
+        <onup>57</onup>
+        <ondown>57</ondown>
+		<scrolltime tween="cubic" easing="out">600</scrolltime>
+        <preloaditems>4</preloaditems>
+        <pagecontrol>60</pagecontrol>
+		<visible>String.IsEqual(Window(Home).Property(SkinHelper.ForcedView),57) | String.IsEmpty(Window(Home).Property(SkinHelper.ForcedView))</visible>
+        <itemlayout height="400" width="250">
+          <control type="group">
+            <width>212</width>
+            <height>315</height>
+            <include>PosterPanel2Layout</include>
+          </control>
+		  <control type="label">
+			<bottom>40</bottom>
+			<posx>10</posx>
+			<width>198</width>
+			<label>$INFO[ListItem.Label]</label>
+			<font>Bold20</font>
+			<textcolor>ffe0e0e0</textcolor>
+		  </control>
+		  <control type="label">
+			<bottom>10</bottom>
+			<posx>10</posx>
+			<width>200</width>
+			<label>$INFO[ListItem.Year]</label>
+			<font>Bold20</font>
+			<textcolor>ff707070</textcolor>
+		  </control>
+        </itemlayout>
+        <focusedlayout height="400" width="250">
+			<control type="image">
+				<top>0</top>
+				<width>100%</width>
+				<height>360</height>
+				<texture>posterglow.png</texture>
+				<colordiffuse>30ffffff</colordiffuse>
+				<animation type="focus">
+				<effect type="fade" start="0" end="100" time="200" easing="inout" tween="quadtratic" />
+				<effect type="slide" end="-18,-34," time="0" easing="inout" tween="quadtratic" />
+				</animation>
+			</control>
+          <control type="group">
+            <width>212</width>
+            <height>315</height>
+
+            <include>PosterPanel2LayoutFocus</include>
+			<control type="image">
+				<top>6</top>
+				<width>220</width>
+				<height>315</height>
+				<texture>pposterglowa.png</texture>
+				<colordiffuse>a0ffffff</colordiffuse>
+				<animation type="focus">
+				<effect type="fade" start="0" end="100" time="200" easing="inout" tween="quadtratic" />
+				<effect type="slide" end="-4," time="0" easing="inout" tween="quadtratic" />
+				</animation>
+			</control>
+			<animation type="focus">
+			<effect type="zoom" start="100" end="106" time="150" easing="inout" tween="quadtratic" />
+			<effect type="slide" end="-6,-20" time="150" easing="inout" tween="quadtratic" />
+			</animation>
+          </control>
+		  <control type="label">
+			<bottom>40</bottom>
+			<posx>10</posx>
+			<width>198</width>
+			<label>$INFO[ListItem.Label]</label>
+			<font>Bold20</font>
+			<textcolor>ffe0e0e0</textcolor>
+		  </control>
+		  <control type="label">
+			<bottom>10</bottom>
+			<posx>10</posx>
+			<width>200</width>
+			<label>$INFO[ListItem.Year]</label>
+			<font>Bold20</font>
+			<textcolor>ff707070</textcolor>
+		  </control>
+        </focusedlayout>
+        </control>
+		
+		<!--vertical Scollbar-->
+		<control type="scrollbar" id="60">
+			<visible>Control.IsVisible(57) + Integer.IsGreater(Container.Numitems,0)</visible>
+			<right>50</right>
+			<bottom>200</bottom>
+			<height>704</height>
+			<onup>60</onup>
+			<ondown>6000</ondown>
+			<onleft>57</onleft>
+		</control>
+		
+    </control>
+	
+	
+	
+  </include>
+
+  </includes>
